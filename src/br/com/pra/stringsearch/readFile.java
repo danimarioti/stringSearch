@@ -1,41 +1,25 @@
 package br.com.pra.stringsearch;
 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.Scanner;
-
 
 public class readFile {
 
-	public readFile() {
+    private final Scanner lerArq;
 
-		    Scanner ler = new Scanner(System.in);
-		 
-		    System.out.printf("Informe o nome de arquivo texto:\n");
-		    String nome = ler.nextLine();
-		    
-		    ler.close();
-		    
-		    try {
-		      FileReader arq = new FileReader(nome);
-		      BufferedReader lerArq = new BufferedReader(arq);
-		 
-		      String linha = lerArq.readLine();
-		      
-		      while (linha != null) {
-		 
-		        linha = lerArq.readLine();
-		      }
-		 
-		      arq.close();
-		    } catch (IOException e) {
-		        System.err.printf("Erro na abertura do arquivo: %s.\n",
-		          e.getMessage());
-		    }
-		 
-		    System.out.println();
-	}
+    public Scanner getLerArq() {
+        return lerArq;
+    }
 
+    
+    public readFile(String nomeArquivo) throws FileNotFoundException{
+        File file;
+        String filePath = Paths.get(".").toAbsolutePath().normalize().toString(); //pegar o diretório atual
+        filePath+=("/src/stringsearch/textos/"+nomeArquivo+".txt"); //adiciono o arquivo ao path
+        file= new File(filePath); //abre o arquivo
+        lerArq = new Scanner(file); //cria um scanner pro arquivo aberto
+    }
 }

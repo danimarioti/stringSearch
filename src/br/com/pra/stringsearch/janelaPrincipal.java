@@ -1,4 +1,4 @@
-package stringsearch;
+package br.com.pra.stringsearch;
 
 import javax.swing.JOptionPane;
 
