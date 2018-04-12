@@ -56,7 +56,7 @@ public class NaiveIT {
         valor = "rebeldes";
         nomeArquivo = "test2";
         expResult=instance.callAlgorithm(valor, nomeArquivo);
-        assertEquals(expResult,4);
+        assertEquals(expResult,5);
         /*TEST 3*/
         System.out.println("**********test3***********");
         valor = "marioti";

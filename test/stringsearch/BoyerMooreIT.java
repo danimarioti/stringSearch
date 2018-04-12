@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package stringsearch;
 
 import org.junit.After;
@@ -56,29 +51,13 @@ public class BoyerMooreIT {
         valor = "rebeldes";
         nomeArquivo = "test2";
         expResult=instance.callAlgorithm(valor, nomeArquivo);
-        assertEquals(expResult,4);
+        assertEquals(expResult,5);
         /*TEST 3*/
         System.out.println("**********test3***********");
         valor = "marioti";
         nomeArquivo = "test3";
         expResult=instance.callAlgorithm(valor, nomeArquivo);
         assertEquals(expResult,3);
-    }
-
-    /**
-     * Test of search method, of class BoyerMoore.
-     */
-    @Test
-    public void testSearch() {
-        System.out.println("search");
-        String txt = "";
-        int linha = 0;
-        BoyerMoore instance = new BoyerMoore();
-        int expResult = 0;
-        int result = instance.search(txt, linha);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     
