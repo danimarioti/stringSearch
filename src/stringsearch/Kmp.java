@@ -1,4 +1,4 @@
-package br.com.pra.stringsearch;
+package stringsearch;
 
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -7,8 +7,9 @@ import java.util.logging.Logger;
 public class Kmp implements SearchAlgorithms {
 
     @Override
-    public void callAlgorithm(String valor, String nomeArquivo) {
+    public int callAlgorithm(String valor, String nomeArquivo) {
         readFile reader = null;
+        int result=0;
         try {
             reader = new readFile(nomeArquivo);
         } catch (FileNotFoundException ex) {
@@ -18,12 +19,13 @@ public class Kmp implements SearchAlgorithms {
         int linha = 0;
         while (reader.getLerArq().hasNext()) {
             text = reader.getLerArq().nextLine();
-            KMPSearch(text, valor, linha++);
+            if (KMPSearch(text, valor, linha++)==1)
+                result++;
         }
-
+        return result;
     }
 
-    void KMPSearch(String txt, String pat, int linha) {
+    int KMPSearch(String txt, String pat, int linha) {
         int M = pat.length();
         int N = txt.length();
 
@@ -46,6 +48,8 @@ public class Kmp implements SearchAlgorithms {
                 System.out.println("Palavra encontrada "
                         + "no íncice " + (i - j + 1) + " da linha " + linha);
                 j = lps[j - 1];
+                return 1;
+                
             } // mismatch after j matches
             else if (i < N && pat.charAt(j) != txt.charAt(i)) {
                 // Do not match lps[0..lps[j-1]] characters,
@@ -57,6 +61,7 @@ public class Kmp implements SearchAlgorithms {
                 }
             }
         }
+        return 0;
     }
 
     void computeLPSArray(String pat, int M, int lps[]) {

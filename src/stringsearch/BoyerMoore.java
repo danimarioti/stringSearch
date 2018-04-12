@@ -1,4 +1,4 @@
-package br.com.pra.stringsearch;
+package stringsearch;
 
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -11,7 +11,8 @@ public class BoyerMoore implements SearchAlgorithms {
     private int[] right;
     
     @Override
-    public void callAlgorithm(String valor, String nomeArquivo) {
+    public int callAlgorithm(String valor, String nomeArquivo) {
+        int result=0;
         this.pat = valor;
         right = new int[R];
         for (int c = 0; c < R; c++)
@@ -29,8 +30,10 @@ public class BoyerMoore implements SearchAlgorithms {
         int linha = 0;
         while (reader.getLerArq().hasNext()) {//enquanto não acabar o arquivo
             text = reader.getLerArq().nextLine();
-            search(text, linha++);
+            if (search(text, linha++)==1)
+                result++;
         }
+        return result;
     }
     
 
@@ -56,10 +59,10 @@ public class BoyerMoore implements SearchAlgorithms {
             }
             if (skip == 0) {
                 System.out.println("String encontrada na " + (i + 1) + " posição da linha "+ linha);
-                return i;    // found
+                return 1;    // found
             }
         }
-        return n;                       // not found
+        return 0;                       // not found
     }
 
 }

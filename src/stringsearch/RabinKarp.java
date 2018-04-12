@@ -1,4 +1,4 @@
-package br.com.pra.stringsearch;
+package stringsearch;
 
 import java.io.FileNotFoundException;
 import java.math.BigInteger;
@@ -13,7 +13,8 @@ public class RabinKarp implements SearchAlgorithms {
     public final static int d = 256;
 
     @Override
-    public void callAlgorithm(String valor, String nomeArquivo) {
+    public int callAlgorithm(String valor, String nomeArquivo) {
+        int result=0;
         int q=101;
         readFile reader = null;
         try {
@@ -25,8 +26,10 @@ public class RabinKarp implements SearchAlgorithms {
         int linha = 0;
         while (reader.getLerArq().hasNext()) {//enquanto não acabar o arquivo
             text = reader.getLerArq().nextLine();
-            search(valor, text, q,linha++);
+            if(search(valor, text, q,linha++)==1)
+                result++;
         }
+        return result;
     }
 
     /* pat -> pattern
@@ -34,7 +37,7 @@ public class RabinKarp implements SearchAlgorithms {
         q -> A prime number
      */
 
-    static void search(String pat, String txt, int q,int linha) {
+    static int search(String pat, String txt, int q,int linha) {
         Scanner scanner = new Scanner(System.in);
         int M = pat.length();
         int N = txt.length();
@@ -74,6 +77,7 @@ public class RabinKarp implements SearchAlgorithms {
                 // if p == t and pat[0...M-1] = txt[i, i+1, ...i+M-1]
                 if (j == M) {
                     System.out.println("Palavra encontrada na coluna " + i+1+" que está na linha "+linha);
+                    return 1;
                 }
             }
 
@@ -89,6 +93,7 @@ public class RabinKarp implements SearchAlgorithms {
                 }
             }
         }
+        return 0;
     }
-
+    
 }

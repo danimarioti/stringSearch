@@ -1,4 +1,4 @@
-package br.com.pra.stringsearch;
+package stringsearch;
 
 
 import java.io.File;

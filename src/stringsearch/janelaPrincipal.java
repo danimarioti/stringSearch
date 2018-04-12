@@ -1,4 +1,4 @@
-package br.com.pra.stringsearch;
+package stringsearch;
 
 import javax.swing.JOptionPane;
 
@@ -48,6 +48,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         nomeArquivo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Pesquisa");
 
         pesquisaPalavra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

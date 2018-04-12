@@ -1,4 +1,4 @@
-package br.com.pra.stringsearch;
+package stringsearch;
 
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -7,8 +7,9 @@ import java.util.logging.Logger;
 public class Naive implements SearchAlgorithms {
 
     @Override
-    public void callAlgorithm(String valor,String nomeArquivo) {
+    public int callAlgorithm(String valor,String nomeArquivo) {
         readFile reader = null;
+        int result=0;
         try {
             reader = new readFile(nomeArquivo);
         } catch (FileNotFoundException ex) {
@@ -18,8 +19,11 @@ public class Naive implements SearchAlgorithms {
         int linha=0;
         while(reader.getLerArq().hasNext()){//enquanto não acabar o arquivo
             text=reader.getLerArq().nextLine();
-            naiveStringMatcher(text, valor,linha++);
+            if(naiveStringMatcher(text, valor,++linha)==1){
+                result++;
+            }
         }
+        return result;
     }
 
     /**
@@ -28,15 +32,14 @@ public class Naive implements SearchAlgorithms {
      * @param text
      * @param pattern
      */
-    private static void naiveStringMatcher(String text, String pattern,int linha) {
+    private static int naiveStringMatcher(String text, String pattern,int linha) {
 
         char[] txtArr = text.toCharArray();
         char[] patArr = pattern.toCharArray();
 
         int tLen = txtArr.length;
         int pLen = patArr.length;
-
-        for (int i = 0; i < tLen - pLen; i++) {
+        for (int i = 0; i <= tLen - pLen; i++) {
 
             int charMatchCount = 0;
             for (int j = 0; j < pLen; j++) {
@@ -53,9 +56,10 @@ public class Naive implements SearchAlgorithms {
             }
             if (charMatchCount == pLen) {
                 print("String encontrada na " + (i + 1) + " posição da linha "+ linha);
-                break;
+                return 1;
             }
         }
+        return 0;
     }
 
     private static void print(String string) {
