@@ -52,7 +52,7 @@ public class BoyerMoore implements SearchAlgorithms {
         for (int i = 0; i <= n - m; i += skip) {
             skip = 0;
             for (int j = m - 1; j >= 0; j--) {
-                if (pat.charAt(j) != txt.charAt(i + j)) {
+                 if (Character.toLowerCase(pat.charAt(j)) != Character.toLowerCase(txt.charAt(i + j))) {
                     skip = Math.max(1, j - right[txt.charAt(i + j)]);
                     break;
                 }

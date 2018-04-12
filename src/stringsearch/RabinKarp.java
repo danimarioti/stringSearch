@@ -26,7 +26,7 @@ public class RabinKarp implements SearchAlgorithms {
         int linha = 0;
         while (reader.getLerArq().hasNext()) {//enquanto não acabar o arquivo
             text = reader.getLerArq().nextLine();
-            if(search(valor, text, q,linha++)==1)
+            if(search(valor.toLowerCase(), text.toLowerCase(), q,linha++)==1)
                 result++;
         }
         return result;

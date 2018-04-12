@@ -48,7 +48,7 @@ public class Naive implements SearchAlgorithms {
                  * If pattern mismatch, break next searching point.
                      *
                  */
-                if (patArr[j] != txtArr[i + j]) {
+                if (Character.toLowerCase(patArr[j]) != Character.toLowerCase(txtArr[i + j])) {
                     break;
                 }
                 charMatchCount++;

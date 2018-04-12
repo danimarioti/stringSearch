@@ -19,7 +19,7 @@ public class Kmp implements SearchAlgorithms {
         int linha = 0;
         while (reader.getLerArq().hasNext()) {
             text = reader.getLerArq().nextLine();
-            if (KMPSearch(text, valor, linha++)==1)
+            if (KMPSearch(text.toLowerCase(), valor.toLowerCase(), linha++)==1)
                 result++;
         }
         return result;
