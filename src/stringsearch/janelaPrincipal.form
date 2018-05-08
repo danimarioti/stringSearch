@@ -33,19 +33,24 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="pesquisaPalavra" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
+                          <Component id="nomeArquivo" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="RabinKarp" min="-2" pref="105" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="KMP" min="-2" pref="104" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="BoyerMoore" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="pesquisaPalavra" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
-                      <Component id="nomeArquivo" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="AhoCorasick" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -71,6 +76,7 @@
                   <Component id="RabinKarp" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="KMP" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BoyerMoore" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="AhoCorasick" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
@@ -128,6 +134,14 @@
     <Component class="javax.swing.JTextField" name="nomeArquivo">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nomeArquivoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="AhoCorasick">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="AhoCorasick"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AhoCorasickActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

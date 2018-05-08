@@ -11,7 +11,7 @@ public class BoyerMoore implements SearchAlgorithms {
     private int[] right;
     
     @Override
-    public int callAlgorithm(String valor, String nomeArquivo) {
+    public int callAlgorithm(String valor, String nomeArquivo, Log logr) {
         int result=0;
         this.pat = valor;
         right = new int[R];
@@ -22,17 +22,20 @@ public class BoyerMoore implements SearchAlgorithms {
         
         readFile reader = null;
         try {
+            logr.getLog().log(Level.INFO,"Abrindo arquivo");
             reader = new readFile(nomeArquivo);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Naive.class.getName()).log(Level.SEVERE, null, ex);
+            String text;
+            int linha = 0;
+            logr.getLog().log(Level.INFO,"Lendo arquivo");
+            while (reader.getLerArq().hasNext()) {//enquanto não acabar o arquivo
+                text = reader.getLerArq().nextLine();
+                if (search(text, linha++)==1)
+                    result++;
+            }
+        } catch (FileNotFoundException e) {
+            logr.getLog().log(Level.SEVERE, "Arquivo "+nomeArquivo+" não encontrado",e);
         }
-        String text;
-        int linha = 0;
-        while (reader.getLerArq().hasNext()) {//enquanto não acabar o arquivo
-            text = reader.getLerArq().nextLine();
-            if (search(text, linha++)==1)
-                result++;
-        }
+        logr.getLog().log(Level.INFO,"Saindo do Naive, resultado "+result);
         return result;
     }
     

@@ -49,19 +49,19 @@ public class NaiveIT {
         /*TEST 1*/
         valor = "Daniela";
         nomeArquivo = "test1";
-        expResult=instance.callAlgorithm(valor, nomeArquivo);
+        expResult=instance.callAlgorithm(valor, nomeArquivo,null);
         assertEquals(expResult,1);
         /*TEST 2*/
         System.out.println("**********test2***********");
         valor = "rebeldes";
         nomeArquivo = "test2";
-        expResult=instance.callAlgorithm(valor, nomeArquivo);
+        expResult=instance.callAlgorithm(valor, nomeArquivo,null);
         assertEquals(expResult,5);
         /*TEST 3*/
         System.out.println("**********test3***********");
         valor = "marioti";
         nomeArquivo = "test3";
-        expResult=instance.callAlgorithm(valor, nomeArquivo);
+        expResult=instance.callAlgorithm(valor, nomeArquivo,null);
         assertEquals(expResult,3);
     }
  

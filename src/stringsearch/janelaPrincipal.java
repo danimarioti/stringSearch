@@ -1,7 +1,10 @@
 package stringsearch;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+        
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,15 +20,18 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private final Naive searchNaive;
     private final RabinKarp searchRabinKarp;
     private final BoyerMoore searchBoyerMoore;
-
+    private final AhoCorasick searchAhoCorasick;
+    private final Log logr; 
     /**
      * Creates new form NewJFrame
      */
-    public janelaPrincipal() {
+    public janelaPrincipal() throws IOException {
         this.searchKmp = new Kmp();
         this.searchNaive = new Naive();
         this.searchRabinKarp = new RabinKarp();
         this.searchBoyerMoore = new BoyerMoore();
+        this.searchAhoCorasick = new AhoCorasick();
+        this.logr=new Log();
         initComponents();
     }
 
@@ -46,6 +52,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         BoyerMoore = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         nomeArquivo = new javax.swing.JTextField();
+        AhoCorasick = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisa");
@@ -94,6 +101,13 @@ public class janelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        AhoCorasick.setText("AhoCorasick");
+        AhoCorasick.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AhoCorasickActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,15 +121,19 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pesquisaPalavra, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nomeArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(RabinKarp, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(KMP, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BoyerMoore))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pesquisaPalavra, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nomeArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(BoyerMoore)
+                        .addGap(12, 12, 12)
+                        .addComponent(AhoCorasick)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +153,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
                     .addComponent(Naive)
                     .addComponent(RabinKarp)
                     .addComponent(KMP)
-                    .addComponent(BoyerMoore))
+                    .addComponent(BoyerMoore)
+                    .addComponent(AhoCorasick))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -143,37 +162,41 @@ public class janelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void NaiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NaiveActionPerformed
+        logr.getLog().log(Level.SEVERE, "Iniciando o Naive");
         double startTime = System.nanoTime();
-        searchNaive.callAlgorithm(pesquisaPalavra.getText(),nomeArquivo.getText());
-        double endTime   = System.nanoTime();
+        searchNaive.callAlgorithm(pesquisaPalavra.getText(),nomeArquivo.getText(),logr);
+        double endTime   = System.nanoTime(); 
         double totalTime = (endTime - startTime)/ 1000000000.0;
         JOptionPane.showMessageDialog(null, "Tempo de execução Naive "+totalTime+" segundos");
     }//GEN-LAST:event_NaiveActionPerformed
 
     private void RabinKarpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RabinKarpActionPerformed
+        logr.getLog().log(Level.SEVERE, "Iniciando o Rabin");
         double startTime = System.nanoTime();
-        searchRabinKarp.callAlgorithm(pesquisaPalavra.getText(),nomeArquivo.getText());
+        searchRabinKarp.callAlgorithm(pesquisaPalavra.getText(),nomeArquivo.getText(),logr);
         double endTime   = System.nanoTime();
         double totalTime = (endTime - startTime)/ 1000000000.0;
         JOptionPane.showMessageDialog(null, "Tempo de execução do Rabin "+totalTime+" segundos");
     }//GEN-LAST:event_RabinKarpActionPerformed
 
     private void KMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KMPActionPerformed
+        logr.getLog().log(Level.SEVERE, "Iniciando o KMP");
         double startTime = System.nanoTime();
-        searchKmp.callAlgorithm(pesquisaPalavra.getText(),nomeArquivo.getText());
+        searchKmp.callAlgorithm(pesquisaPalavra.getText(),nomeArquivo.getText(),logr);
         double endTime   = System.nanoTime();
         double totalTime = (endTime - startTime)/ 1000000000.0;
         JOptionPane.showMessageDialog(null, "Tempo de execução do KMP "+totalTime+" segundos");
     }//GEN-LAST:event_KMPActionPerformed
 
     private void BoyerMooreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoyerMooreActionPerformed
+        logr.getLog().log(Level.SEVERE, "Iniciando o Boyer");
         double startTime = System.nanoTime();
-        searchBoyerMoore.callAlgorithm(pesquisaPalavra.getText(),nomeArquivo.getText());
+        searchBoyerMoore.callAlgorithm(pesquisaPalavra.getText(),nomeArquivo.getText(),logr);
         double endTime   = System.nanoTime();
         double totalTime = (endTime - startTime)/ 1000000000.0;
         JOptionPane.showMessageDialog(null, "Tempo de execução do Boyer "+totalTime+" segundos");
     }//GEN-LAST:event_BoyerMooreActionPerformed
-
+ 
     private void pesquisaPalavraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaPalavraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pesquisaPalavraActionPerformed
@@ -181,6 +204,15 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private void nomeArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeArquivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeArquivoActionPerformed
+
+    private void AhoCorasickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AhoCorasickActionPerformed
+        logr.getLog().log(Level.SEVERE, "Iniciando o Aho");
+        double startTime = System.nanoTime();
+        searchNaive.callAlgorithm(pesquisaPalavra.getText(),nomeArquivo.getText(),logr);
+        double endTime   = System.nanoTime();
+        double totalTime = (endTime - startTime)/ 1000000000.0;
+        JOptionPane.showMessageDialog(null, "Tempo de execução Aho Corasick "+totalTime+" segundos");
+    }//GEN-LAST:event_AhoCorasickActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,12 +245,17 @@ public class janelaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new janelaPrincipal().setVisible(true);
+                try {
+                    new janelaPrincipal().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(janelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AhoCorasick;
     private javax.swing.JButton BoyerMoore;
     private javax.swing.JButton KMP;
     private javax.swing.JButton Naive;

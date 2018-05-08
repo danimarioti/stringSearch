@@ -2,27 +2,36 @@ package stringsearch;
 
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Naive implements SearchAlgorithms {
 
+    /**
+     *
+     * @param valor
+     * @param nomeArquivo
+     * @param logr
+     * @return
+     */
     @Override
-    public int callAlgorithm(String valor,String nomeArquivo) {
+    public int callAlgorithm(String valor,String nomeArquivo, Log logr) {
         readFile reader = null;
         int result=0;
         try {
+            logr.getLog().log(Level.INFO,"Abrindo arquivo");
             reader = new readFile(nomeArquivo);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Naive.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String text;
-        int linha=0;
-        while(reader.getLerArq().hasNext()){//enquanto não acabar o arquivo
-            text=reader.getLerArq().nextLine();
-            if(naiveStringMatcher(text, valor,++linha)==1){
-                result++;
+            String text;
+            int linha=0;
+            logr.getLog().log(Level.INFO,"Lendo arquivo");
+            while(reader.getLerArq().hasNext()){//enquanto não acabar o arquivo
+                text=reader.getLerArq().nextLine();
+                if(naiveStringMatcher(text, valor,++linha)==1){
+                    result++;
+                }
             }
+        } catch (FileNotFoundException e) {
+            logr.getLog().log(Level.SEVERE, "Arquivo "+nomeArquivo+" não encontrado");
         }
+        logr.getLog().log(Level.INFO,"Saindo do Naive, resultado "+result);
         return result;
     }
 

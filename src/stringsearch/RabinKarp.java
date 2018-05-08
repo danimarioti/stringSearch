@@ -1,11 +1,8 @@
 package stringsearch;
 
 import java.io.FileNotFoundException;
-import java.math.BigInteger;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class RabinKarp implements SearchAlgorithms {
 
@@ -13,22 +10,25 @@ public class RabinKarp implements SearchAlgorithms {
     public final static int d = 256;
 
     @Override
-    public int callAlgorithm(String valor, String nomeArquivo) {
+    public int callAlgorithm(String valor, String nomeArquivo, Log logr) {
         int result=0;
         int q=101;
         readFile reader = null;
         try {
+            logr.getLog().log(Level.INFO,"Abrindo arquivo");
             reader = new readFile(nomeArquivo);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Naive.class.getName()).log(Level.SEVERE, null, ex);
+            String text;
+            int linha = 0;
+            logr.getLog().log(Level.INFO,"Lendo arquivo");
+            while (reader.getLerArq().hasNext()) {//enquanto não acabar o arquivo
+                text = reader.getLerArq().nextLine();
+                if(search(valor.toLowerCase(), text.toLowerCase(), q,linha++)==1)
+                    result++;
+            }
+        }  catch (FileNotFoundException e) {
+            logr.getLog().log(Level.SEVERE, "Arquivo "+nomeArquivo+" não encontrado",e);
         }
-        String text;
-        int linha = 0;
-        while (reader.getLerArq().hasNext()) {//enquanto não acabar o arquivo
-            text = reader.getLerArq().nextLine();
-            if(search(valor.toLowerCase(), text.toLowerCase(), q,linha++)==1)
-                result++;
-        }
+        logr.getLog().log(Level.INFO,"Saindo do Naive, resultado "+result);
         return result;
     }
 
